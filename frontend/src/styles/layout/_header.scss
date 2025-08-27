@@ -1,0 +1,100 @@
+@use '../abstracts/mixins' as m;
+
+/* src/styles/layout/_header.scss */
+.header__account {
+    position: relative;
+}
+
+.dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: .35rem;
+    min-width: 140px;
+    z-index: 50;
+}
+
+.dropdown__item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    color: var(--text);
+    padding: .5rem .65rem;
+    border-radius: 8px;
+}
+
+.dropdown__item:hover {
+    background: rgba(255, 255, 255, .06);
+}
+
+.header {
+    min-height: var(--header-h);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(17, 24, 39, .7);
+    backdrop-filter: blur(8px);
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+}
+
+.header__inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1rem;
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    height: var(--header-h);
+}
+
+.header__brand {
+    font-weight: 800;
+    letter-spacing: .2px;
+}
+
+.header__spacer {
+    flex: 1 1 auto;
+}
+
+.header__nav {
+    display: flex;
+    gap: .5rem;
+}
+
+.header__link {
+    color: var(--text);
+    opacity: .8;
+    padding: .4rem .7rem;
+    border-radius: 10px;
+}
+
+.header__link:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, .06);
+}
+
+.header__link--active {
+    opacity: 1;
+    background: rgba(255, 255, 255, .08);
+}
+
+.theme-toggle {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    border-radius: 12px;
+    padding: .45rem .7rem;
+    cursor: pointer;
+}
+
+.theme-toggle:focus-visible {
+    @include m.focus-ring;
+}

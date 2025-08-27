@@ -1,0 +1,9 @@
+@use '../abstracts/mixins' as m;
+.card { @include m.card; padding: 1rem 1.25rem; }
+.card--flat { box-shadow: none; }
+.card__title { margin:0 0 .25rem; font-weight:700; }
+.card__meta { font-size:.85rem; color: var(--muted); }
+.list { list-style:none; padding:0; margin:0; display:grid; gap:.75rem; }
+.item { @include m.card; padding:.85rem 1rem; display:grid; gap:.3rem; }
+.item__row { display:flex; align-items:center; gap:.75rem; }
+.item__spacer { flex:1 1 auto; }

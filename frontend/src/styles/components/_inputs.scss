@@ -1,0 +1,11 @@
+@use '../abstracts/mixins' as m;
+.input, .select, .textarea {
+  width:100%; padding:.65rem .75rem; border:1px solid var(--border); border-radius: 12px;
+  background: var(--surface); color: var(--text);
+}
+.input:focus, .select:focus, .textarea:focus { @include m.focus-ring; }
+.form { display:grid; gap:.8rem; }
+.form__row { display:grid; gap:.35rem; }
+.form__hint { color: var(--muted); font-size:.85rem; }
+.error { color: #fca5a5; font-size:.85rem; }
+.actions { display:flex; gap:.5rem; align-items:center; }

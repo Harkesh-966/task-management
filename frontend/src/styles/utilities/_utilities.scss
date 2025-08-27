@@ -1,0 +1,5 @@
+.m-0{margin:0} .mt-1{margin-top:.25rem} .mt-2{margin-top:.5rem} .mt-3{margin-top:1rem}
+.flex{display:flex} .items-center{align-items:center} .justify-between{justify-content:space-between}
+.gap-1{gap:.25rem} .gap-2{gap:.5rem} .gap-3{gap:1rem}
+.text-muted{color:var(--muted)}
+.center { display:grid; place-items:center; height: calc(100dvh - var(--header-h)); padding: .5rem; }

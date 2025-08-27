@@ -1,0 +1,50 @@
+<div class="page__header flex items-center justify-between">
+    <h2 class="page__title">Tasks</h2>
+    <div class="page__actions">
+        <a routerLink="/tasks/new" class="btn btn--primary btn--pill">➕ New</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-1">
+            <label class="visually-hidden" for="status">Status</label>
+            <select id="status" class="select" style="min-width:160px" [(ngModel)]="statusFilter" (change)="fetch()">
+                <option value="all">All</option>
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+            </select>
+        </div>
+        <button class="btn btn--ghost btn--sm" (click)="fetch()">Refresh</button>
+    </div>
+</div>
+
+<div class="stack mt-3">
+    <div *ngIf="loading()" class="card">Loading...</div>
+    <div *ngIf="error()" class="card" style="border-color: rgba(220,38,38,.35);">❗ {{ error() }}</div>
+
+    <ul class="list" *ngIf="!loading() && !error() && tasks().length">
+        <li class="item" *ngFor="let t of tasks(); trackBy: trackById">
+            <div class="item__row">
+                <strong style="font-weight:700">{{ t.title }}</strong>
+                <span class="item__spacer"></span>
+                <span class="badge"
+                    [ngClass]="{ 'badge--ok': t.status === 'completed', 'badge--warn': t.status === 'pending' }">
+                    {{ t.status }}
+                </span>
+                <a [routerLink]="['/tasks', t._id, 'edit']" class="btn btn--ghost btn--sm">Edit</a>
+            </div>
+            <p class="text-muted" *ngIf="t.description">{{ t.description }}</p>
+        </li>
+    </ul>
+
+    <div class="card" *ngIf="!loading() && !error() && !tasks().length">
+        <div class="flex items-center gap-2">
+            <div>🗒️</div>
+            <div>
+                <div class="card__title">No tasks yet</div>
+                <div class="card__meta">Create your first task to get started.</div>
+            </div>
+        </div>
+    </div>
+</div>

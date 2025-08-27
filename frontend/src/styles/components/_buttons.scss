@@ -1,0 +1,15 @@
+@use '../abstracts/mixins' as m;
+
+.btn {
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.6rem .9rem; border-radius: 12px; border:1px solid var(--border);
+  background: var(--surface); color: var(--text); cursor:pointer;
+  transition: transform .06s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+.btn:focus-visible { @include m.focus-ring; }
+.btn--primary { background: var(--primary); color: var(--primary-contrast); border-color: transparent; box-shadow: var(--primary-shadow); }
+.btn--ghost { background: transparent; }
+.btn--danger { background: var(--danger); color: #fff; border-color: transparent; }
+.btn--pill { border-radius: 999px; }
+.btn--sm { padding:.4rem .7rem; font-size:.9rem; }

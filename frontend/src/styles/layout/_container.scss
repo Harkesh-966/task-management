@@ -1,0 +1,9 @@
+.page { padding: 1.25rem; }
+.page--auth { padding: 0; }
+.page__title { margin: 0 0 .75rem; font-size: clamp(1.25rem, 1.2rem + .5vw, 1.6rem); }
+.page__actions { display:flex; gap:.5rem; align-items:center; }
+.stack { display:grid; gap: 1rem; }
+.grid { display:grid; gap:1rem; }
+@media (min-width: 720px) {
+  .grid--2 { grid-template-columns: 1fr 1fr; }
+}

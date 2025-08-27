@@ -1,0 +1,28 @@
+<div class="center">
+    <div class="card" style="width:min(480px, 100%);">
+        <h2 class="card__title">Sign in</h2>
+        <p class="card__meta">Welcome back! Please enter your credentials.</p>
+        <form class="form mt-3" (ngSubmit)="submit()" [formGroup]="form" novalidate>
+            <div class="form__row">
+                <label>Email</label>
+                <input class="input" type="email" formControlName="email" placeholder="you@example.com" />
+                <div class="error" *ngIf="form.controls.email.touched && form.controls.email.invalid">Valid email
+                    required</div>
+            </div>
+            <div class="form__row">
+                <label>Password</label>
+                <input class="input" type="password" formControlName="password" placeholder="••••••••" />
+                <div class="error" *ngIf="form.controls.password.touched && form.controls.password.invalid">Min 6
+                    characters</div>
+            </div>
+            <!-- ... -->
+            <div class="actions mt-2">
+                <button class="btn btn--primary" type="submit" [disabled]="loading()">
+                    {{ loading() ? 'Signing in...' : 'Sign in' }}
+                </button>
+                <a class="btn btn--ghost" routerLink="/auth/register">Create account</a>
+            </div>
+
+        </form>
+    </div>
+</div>

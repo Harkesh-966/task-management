@@ -1,0 +1,8 @@
+<div class="toasts">
+    <div class="toast" *ngFor="let t of errors.toasts()" [class.toast--error]="t.kind === 'error'"
+        [class.toast--success]="t.kind === 'success'" [class.toast--info]="t.kind === 'info'"
+        [class.toast--warn]="t.kind === 'warn'">
+        <span>{{ t.text }}</span>
+        <button type="button" (click)="dismiss(t.id)">✕</button>
+    </div>
+</div>

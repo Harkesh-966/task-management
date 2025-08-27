@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  mongo:
+    image: mongo:7
+    container_name: taskmanager-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+  app:
+    build: .
+    container_name: taskmanager-app
+    env_file: .env
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+volumes:
+  mongo_data:
