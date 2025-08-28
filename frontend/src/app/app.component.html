@@ -19,7 +19,7 @@
             </button>
 
             <div class="dropdown" *ngIf="menuOpen()" (mouseleave)="closeMenu()">
-                <button type="button" class="dropdown__item" (click)="logout()">Logout</button>
+                <button type="button" class="dropdown__item" (click)="onLogout()">Logout</button>
             </div>
         </div>
 
@@ -33,3 +33,5 @@
 </main>
 
 <app-toast></app-toast>
+
+<app-confirm-dialog></app-confirm-dialog>

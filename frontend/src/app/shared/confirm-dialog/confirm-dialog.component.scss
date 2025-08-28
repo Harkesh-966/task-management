@@ -1,0 +1,137 @@
+/* Dark theme tokens */
+$bg-backdrop: rgba(0, 0, 0, 0.6);
+$panel-bg: #0f172a; // slate-900-ish
+$panel-elev: #111827; // slate-800-ish (used in secondary btn)
+$border: #1f2937; // slate-700
+$text: #e5e7eb; // slate-200
+$text-muted: #9ca3af; // slate-400
+$shadow: 0 18px 60px rgba(0, 0, 0, 0.6);
+
+$primary: #3b82f6; // blue-500
+$danger: #ef4444; // red-500
+$warning: #f59e0b; // amber-500
+$success: #10b981; // emerald-500
+
+/* Container covers entire viewport */
+.cdk-global-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000; // ensure above app content
+    display: grid;
+    place-items: center;
+    pointer-events: none; // only panel/backdrop receive events
+    font-family: inherit;
+    color-scheme: dark; // native controls align with dark
+}
+
+/* Backdrop */
+.cdk-global-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: $bg-backdrop;
+    pointer-events: auto;
+}
+
+/* Panel */
+.cdk-global-modal__panel {
+    position: relative;
+    width: min(92vw, 520px);
+    background: $panel-bg;
+    color: $text;
+    border: 1px solid $border;
+    border-radius: 14px;
+    box-shadow: $shadow;
+    padding: 1rem 1rem 0.75rem;
+    pointer-events: auto;
+    transition: transform .12s ease, box-shadow .12s ease;
+    transform: translateY(0);
+
+    &.-danger {
+        border-top: 6px solid $danger;
+    }
+
+    &.-warning {
+        border-top: 6px solid $warning;
+    }
+
+    &.-success {
+        border-top: 6px solid $success;
+    }
+}
+
+.cdk-global-modal__header {
+    margin-bottom: 0.25rem;
+
+    h2 {
+        margin: 0;
+        font-size: 1.1rem;
+        line-height: 1.35;
+        color: $text;
+    }
+}
+
+.cdk-global-modal__body {
+    padding: 0.25rem 0 0.75rem;
+
+    p {
+        margin: 0;
+        color: $text-muted;
+    }
+}
+
+.cdk-global-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.75rem 0 0.5rem;
+}
+
+/* Buttons */
+.btn {
+    appearance: none;
+    border: 1px solid transparent;
+    padding: 0.5rem 0.9rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter .12s ease, background-color .12s ease, border-color .12s ease, transform .03s ease;
+
+    &:active {
+        transform: translateY(1px);
+    }
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba($primary, .35);
+    }
+
+    &--secondary {
+        background: $panel-elev;
+        color: $text;
+        border-color: $border;
+
+        &:hover {
+            filter: brightness(1.08);
+        }
+    }
+
+    &--primary {
+        background: $primary;
+        color: #0b1020;
+        border-color: $primary;
+
+        &:hover {
+            filter: brightness(1.06);
+        }
+    }
+
+    &--danger {
+        background: $danger;
+        color: #0b0b0b;
+        border-color: $danger;
+
+        &:hover {
+            filter: brightness(1.06);
+        }
+    }
+}

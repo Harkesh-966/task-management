@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ErrorService } from 'src/app/core/services/error.service';
@@ -16,6 +16,7 @@ export class RegisterComponent {
     private fb = inject(FormBuilder);
     private auth = inject(AuthService);
     private errorService = inject(ErrorService)
+    private router = inject(Router);
     readonly form = this.fb.group({
         username: ['', [Validators.required, Validators.minLength(2)]],
         email: ['', [Validators.required, Validators.email]],
@@ -31,7 +32,11 @@ export class RegisterComponent {
         this.loading.set(true);
         this.error.set(''); this.success = '';
         this.auth.register(this.form.getRawValue() as any).subscribe({
-            next: () => { this.success = 'Account created! Please sign in.'; this.loading.set(false) },
+            next: () => {
+                this.success = 'Account created! Please sign in.';
+                this.loading.set(false)
+                this.router.navigateByUrl('/auth/login')
+            },
             error: (err) => {
                 this.errorService.capture(err)
                 this.error.set(err?.message || err?.error?.message || 'Login failed');

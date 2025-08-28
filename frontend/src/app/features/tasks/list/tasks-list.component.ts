@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TasksService } from '../../../core/services/tasks.service';
 import { Task } from '../../../core/models/task.models';
+import { ConfirmDialogService } from 'src/app/core/services/confirm-dialog.service';
+import { ErrorService } from 'src/app/core/services/error.service';
 
 @Component({
     standalone: true,
@@ -14,10 +16,12 @@ import { Task } from '../../../core/models/task.models';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksListComponent implements OnInit {
+    private dialog = inject(ConfirmDialogService);
     private tasksService = inject(TasksService);
     readonly tasks = signal<Task[]>([]);
     readonly loading = signal<boolean>(false);
     readonly error = signal<string>('');
+    private errorService = inject(ErrorService)
 
     statusFilter: 'all' | 'pending' | 'completed' = 'all';
 
@@ -31,8 +35,28 @@ export class TasksListComponent implements OnInit {
             next: (res: any) => {
                 this.tasks.set(res.data || []); this.loading.set(false);
             },
-            error: (err) => { this.error.set(err?.error?.message || 'Failed to load tasks'); this.loading.set(false); console.log('---false'); }
+            error: (err) => { this.error.set(err?.error?.message || 'Failed to load tasks'); this.loading.set(false); }
         });
+    }
+
+    async onDelete(id: string) {
+        const ok = await this.dialog.open({
+            title: 'Delete task?',
+            message: 'Are you sure you want to delete this task? This action can’t be undone.',
+            confirmText: 'Delete',
+            cancelText: 'Cancel',
+            type: 'danger'
+        });
+        if (ok) {
+            this.tasksService.deleteTask(id).subscribe({
+                next: (res: any) => {
+                    this.fetch()
+                },
+                error: (err) => {
+                    this.errorService.capture(err);
+                }
+            })
+        }
     }
 
     trackById(index: number, t: Task) { return t.id; }
