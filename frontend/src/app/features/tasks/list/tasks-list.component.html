@@ -1,7 +1,7 @@
 <div class="page__header flex items-center justify-between">
     <h2 class="page__title">Tasks</h2>
     <div class="page__actions">
-        <a routerLink="/tasks/new" class="btn btn--primary btn--pill">➕ New</a>
+        <a routerLink="/tasks/new" class="btn btn--primary btn--pill">+ New</a>
     </div>
 </div>
 
@@ -33,7 +33,8 @@
                     {{ t.status }}
                 </span>
                 <a [routerLink]="['/tasks', t._id, 'edit']" class="btn btn--ghost btn--sm">Edit</a>
-                <button type="button" class="btn btn--ghost btn--sm" title="Delete task" aria-label="Delete task">
+                <button type="button" class="btn btn--ghost btn--sm" title="Delete task" aria-label="Delete task"
+                    (click)="onDelete(t._id)">
                     🗑️
                 </button>
             </div>

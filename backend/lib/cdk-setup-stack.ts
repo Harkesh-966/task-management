@@ -37,8 +37,8 @@ export class CdkSetupStack extends cdk.Stack {
         const httpApi = new HttpApi(this, 'HttpApi', {
             corsPreflight: {
                 allowOrigins: [
-                    'https://lucent-naiad-5a58ba.netlify.app', // Netlify
-                    'http://localhost:4200',                    // local dev (optional)
+                    'https://lucent-naiad-5a58ba.netlify.app',
+                    'http://localhost:4200',
                 ],
                 allowHeaders: [
                     'Content-Type',

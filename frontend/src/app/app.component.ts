@@ -11,15 +11,19 @@ import { RouterLink, RouterLinkActive, RouterOutlet, Router, NavigationEnd } fro
 import { filter } from 'rxjs/operators';
 import { AuthService } from './core/services/auth.service';
 import { ToastComponent } from './shared/toast/toast.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogService } from './core/services/confirm-dialog.service';
+
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, ToastComponent],
+    imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, ToastComponent, ConfirmDialogComponent],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+    private dialog = inject(ConfirmDialogService);
     private router = inject(Router);
     private location = inject(Location)
     private auth = inject(AuthService);
@@ -56,7 +60,6 @@ export class AppComponent {
         this.theme.set(this.theme() === 'light' ? 'dark' : 'light');
     }
 
-    // Prevent accidental bubbling & just toggle state
     toggleMenu(ev: MouseEvent) {
         ev.stopPropagation();
         this.menuOpen.update(v => !v);
@@ -65,10 +68,23 @@ export class AppComponent {
 
     logout() {
         this.auth.logout();
-        this.router.navigateByUrl('/auth/login');
     }
 
-    // ✅ Click outside to close
+    async onLogout() {
+        const ok = await this.dialog.open({
+            title: 'Logout',
+            message: 'Do you really want to logout?',
+            confirmText: 'Logout',
+            cancelText: 'Cancel',
+            type: 'danger'
+        });
+        if (ok) {
+            this.auth.logout();
+            this.router.navigateByUrl('/auth/login');
+
+        }
+    }
+
     @HostListener('document:click', ['$event'])
     onDocumentClick(e: MouseEvent) {
         const el = e.target as HTMLElement | null;
