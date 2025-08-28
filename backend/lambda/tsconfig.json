@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "CommonJS",
+        "lib": [
+            "ES2020",
+            "DOM"
+        ],
+        "outDir": "dist",
+        "rootDir": ".", // <-- fix here (rootDir ab pura project hoga)
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "noImplicitAny": true
+    },
+    "include": [
+        "src",
+        "tests"
+    ]
+}
