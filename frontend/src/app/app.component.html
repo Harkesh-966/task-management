@@ -2,20 +2,17 @@
     <div class="header__inner">
         <div class="header__brand">Task Manager</div>
 
-        <!-- Logged OUT -->
         <nav class="header__nav" *ngIf="!user()">
             <a routerLink="/auth/login" routerLinkActive="header__link--active" class="header__link">Login</a>
             <a routerLink="/auth/register" routerLinkActive="header__link--active" class="header__link">Register</a>
         </nav>
 
-        <!-- Logged IN -->
         <nav class="header__nav" *ngIf="user()">
             <a routerLink="/tasks" routerLinkActive="header__link--active" class="header__link">Tasks</a>
         </nav>
 
         <div class="header__spacer"></div>
 
-        <!-- Account dropdown when logged IN -->
         <div class="header__account" *ngIf="user()">
             <button type="button" class="btn btn--ghost btn--sm btn--pill" (click)="toggleMenu($event)">
                 {{ user()?.username || 'Account' }} ▾
@@ -26,7 +23,6 @@
             </div>
         </div>
 
-        <button class="theme-toggle" type="button" (click)="toggleTheme()">Toggle Theme</button>
     </div>
 </header>
 

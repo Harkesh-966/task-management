@@ -33,6 +33,9 @@
                     {{ t.status }}
                 </span>
                 <a [routerLink]="['/tasks', t._id, 'edit']" class="btn btn--ghost btn--sm">Edit</a>
+                <button type="button" class="btn btn--ghost btn--sm" title="Delete task" aria-label="Delete task">
+                    🗑️
+                </button>
             </div>
             <p class="text-muted" *ngIf="t.description">{{ t.description }}</p>
         </li>
