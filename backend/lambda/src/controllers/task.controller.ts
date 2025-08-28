@@ -22,7 +22,7 @@ export const getTasks = async (req: AuthRequest, res: Response, next: NextFuncti
         const userId = req.user!.id;
         const { status, search, page = '1', limit = '10', sortBy = 'createdAt', sortOrder = 'desc' } = req.query as Record<string, string>;
 
-        const filter: any = { user: userId };
+        const filter: any = { user: userId, isDelete: false };
         if (status && ['pending', 'completed'].includes(status)) filter.status = status;
         if (search) filter.$text = { $search: search };
 
@@ -78,7 +78,11 @@ export const deleteTask = async (req: AuthRequest, res: Response, next: NextFunc
     try {
         const { id } = req.params;
         if (!mongoose.isValidObjectId(id)) throw new AppError('Invalid id', 400);
-        const task = await Task.findOneAndDelete({ _id: id, user: req.user!.id });
+        const task = await Task.findOneAndUpdate(
+            { _id: id, user: req.user!.id },        // filter
+            { $set: { isDelete: true } },           // update
+            { new: true, runValidators: true }      // return updated doc
+        );
         if (!task) throw new AppError('Task not found', 404);
         io.to(req.user!.id).emit('task:deleted', { _id: id });
         return res.status(204).send();

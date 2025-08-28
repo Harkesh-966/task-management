@@ -1,0 +1,27 @@
+<div *ngIf="svc.isOpen(); else noop" class="cdk-global-modal" role="dialog" aria-modal="true"
+    aria-labelledby="confirm-title" aria-describedby="confirm-message" (cdkObserveContent)="onOpenChanged(true)">
+    <div class="cdk-global-modal__backdrop" (click)="onBackdropClick()"></div>
+
+    <div class="cdk-global-modal__panel" [class.-danger]="svc.opts().type === 'danger'"
+        [class.-warning]="svc.opts().type === 'warning'" [class.-success]="svc.opts().type === 'success'">
+        <div class="cdk-global-modal__header">
+            <h2 id="confirm-title">{{ svc.opts().title }}</h2>
+        </div>
+
+        <div id="confirm-message" class="cdk-global-modal__body">
+            <p>{{ svc.opts().message }}</p>
+        </div>
+
+        <div class="cdk-global-modal__actions">
+            <button type="button" class="btn btn--secondary" (click)="svc.cancel()">
+                {{ svc.opts().cancelText }}
+            </button>
+            <button id="confirm-primary" type="button" class="btn btn--primary"
+                [class.btn--danger]="svc.opts().type === 'danger'" (click)="svc.confirm()">
+                {{ svc.opts().confirmText }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<ng-template #noop></ng-template>

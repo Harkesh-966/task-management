@@ -7,6 +7,7 @@ export interface ITask extends Document {
     description?: string;
     status: TaskStatus;
     user: mongoose.Types.ObjectId;
+    isDelete: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -15,6 +16,7 @@ const taskSchema = new Schema<ITask>({
     title: { type: String, required: true, trim: true, maxlength: 200 },
     description: { type: String, trim: true, maxlength: 2000 },
     status: { type: String, enum: ['pending', 'completed'], default: 'pending' },
+    isDelete: { type: Boolean, default: false },
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true }
 }, { timestamps: true });
 
