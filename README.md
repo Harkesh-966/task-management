@@ -1,4 +1,3 @@
-
 # Project Setup & Deployment Guide
 
 > Generated on 2025-08-28 UTC
@@ -14,6 +13,23 @@
 /backend   # API/Lambda + CDK (deploys to AWS)
 /frontend  # Angular app (local dev)
 ```
+## Live URLs / Endpoints (Production)
+
+- **Frontend (Netlify):** https://lucent-naiad-5a58ba.netlify.app/auth/login
+- **Backend API (API Gateway/Lambda):** https://w3idki55pi.execute-api.ap-south-1.amazonaws.com
+
+### How to point the Angular app to the API
+- In your Angular environment config (e.g., `src/environments/environment.ts`), set your API base, for example:
+  ```ts
+  export const environment = {{ production: false, apiBaseUrl: 'https://w3idki55pi.execute-api.ap-south-1.amazonaws.com' }};
+  ```
+- For production builds, mirror the same key in `environment.prod.ts`.
+
+### CORS reminder (Backend)
+- Allow the Netlify origin in your API CORS settings:
+  - Allowed Origin: `https://lucent-naiad-5a58ba.netlify.app`
+  - Methods/Headers as required by your app
+
 
 ## First-Time Setup
 ```bash
