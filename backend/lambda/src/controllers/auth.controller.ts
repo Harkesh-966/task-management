@@ -29,18 +29,18 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
         const accessToken = signAccessToken({ sub: (user._id as mongoose.Types.ObjectId).toString(), email: user.email });
         const refreshToken = signRefreshToken({ sub: (user._id as mongoose.Types.ObjectId).toString(), email: user.email });
-
+        const isProd = process.env.NODE_ENV === 'production';
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 15 * 60 * 1000
+            secure: isProd,
+            sameSite: isProd ? 'none' : 'lax',
+            path: '/',
         });
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 7 * 24 * 60 * 60 * 1000
+            secure: isProd,
+            sameSite: isProd ? 'none' : 'lax',
+            path: '/',
         });
         return res.json(apiSuccess({
             user: { id: user._id, username: user.username, email: user.email }

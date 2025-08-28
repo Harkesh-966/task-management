@@ -7,7 +7,7 @@
             "DOM"
         ],
         "outDir": "dist",
-        "rootDir": ".", // <-- fix here (rootDir ab pura project hoga)
+        "rootDir": ".",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,

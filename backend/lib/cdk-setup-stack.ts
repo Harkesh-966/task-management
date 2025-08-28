@@ -36,11 +36,29 @@ export class CdkSetupStack extends cdk.Stack {
 
         const httpApi = new HttpApi(this, 'HttpApi', {
             corsPreflight: {
-                allowOrigins: ['*'],
-                allowHeaders: ['*'],
-                allowMethods: [CorsHttpMethod.ANY],
+                allowOrigins: [
+                    'https://lucent-naiad-5a58ba.netlify.app', // Netlify
+                    'http://localhost:4200',                    // local dev (optional)
+                ],
+                allowHeaders: [
+                    'Content-Type',
+                    'Authorization',
+                    'X-Requested-With',
+                    'Accept',
+                    'Origin'
+                ],
+                allowMethods: [
+                    CorsHttpMethod.GET,
+                    CorsHttpMethod.POST,
+                    CorsHttpMethod.PUT,
+                    CorsHttpMethod.PATCH,
+                    CorsHttpMethod.DELETE,
+                    CorsHttpMethod.OPTIONS
+                ],
+                allowCredentials: true,
             },
         });
+
         const integration = new HttpLambdaIntegration('ExpressIntegration', apiFn);
         httpApi.addRoutes({ path: '/{proxy+}', integration });
         new cdk.CfnOutput(this, 'HttpApiEndpoint', {
